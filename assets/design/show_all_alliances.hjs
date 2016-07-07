@@ -1,0 +1,11 @@
+<!-- Create Team -->
+<section>
+  <p>Player alliances:</p>
+  <ul>
+    {{#players}}
+    <li class="{{#spy}}spy{{/spy}}{{^spy}}resistance{{/spy}}">{{name}} &mdash; {{#spy}}Spy{{/spy}}{{^spy}}Resistance{{/spy}}</li>
+    {{/players}}
+  </ul>
+  <p></p>
+  <p>Click 'New Game' in the menu to begin again.</p>
+</section>

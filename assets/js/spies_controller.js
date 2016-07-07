@@ -187,6 +187,12 @@
         .on('click', '#results_done', function(evt) {
             render('view_leader_pass', {'name': Spy.players[Spy.current_leader].name});
         })
+        // view alliances button
+        .on('click', '#view_all_alliances', function (evt) {
+            render('show_all_alliances', {
+                'players': Spy.players
+            }, true);
+        })
         ;
     
 

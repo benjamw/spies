@@ -5,5 +5,4 @@
     {{#resistance}}<span class="resistance">Resistance</span>{{/resistance}}{{^resistance}}<span class="spy">Spies</span>{{/resistance}}<br>
     have won!</h2>
 </section>
-<p></p>
-<p>Click 'New Game' in the menu to begin again.</p>
+<span class="button special fit" id="view_all_alliances">View Alliances</span>
