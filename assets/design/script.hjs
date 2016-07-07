@@ -1,0 +1,14 @@
+<!-- Script -->
+<section>
+  <ul>
+    <li>Everyone close your eyes.</li>
+    <li>Spies, open your eyes.</li>
+    <li>Spies look around and make sure that you know all the other spies.</li>
+    <li>Spies, close your eyes.</li>
+    <li>Everyone's eyes should be closed.</li>
+    <li>[Pause]</li>
+    <li>Everyone open your eyes.</li>
+  </ul>
+  <hr class="major">
+  <span class="button special fit" id="script_done">Done</span>
+</section>

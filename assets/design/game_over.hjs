@@ -1,0 +1,9 @@
+<!-- Show Results -->
+<section id="banner">
+  <h2><code>GAME OVER</code><br><br>
+    The<br>
+    {{#resistance}}<span class="resistance">Resistance</span>{{/resistance}}{{^resistance}}<span class="spy">Spies</span>{{/resistance}}<br>
+    have won!</h2>
+</section>
+<p></p>
+<p>Click 'New Game' in the menu to begin again.</p>

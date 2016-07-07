@@ -1,0 +1,17 @@
+<!-- Create Team -->
+<section>
+  <p>Pick <span class="team_count">{{count}}</span> more players:</p>
+  <form method="get" action="" id="create_team_form">
+    <div class="row uniform">
+      {{#players}}
+      <div class="12u">
+        <input type="checkbox" id="player_{{id}}" name="player_{{id}}" class="team_player"/>
+        <label for="player_{{id}}">{{name}}</label>
+      </div>
+      {{/players}}
+      <div class="12u">
+        <input type="submit" class="button special fit disabled" value="Create Team" disabled="disabled"/>
+      </div>
+    </div>
+  </form>
+</section>

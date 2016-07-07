@@ -1,0 +1,7 @@
+<!-- Do Mission Pass -->
+<section>
+  <p>Pass the device to <strong>{{name}}</strong></p>
+  <hr class="major">
+  <h3>{{name}}:</h3>
+  <p><span class="button special fit" id="do_mission">Do Mission</span></p>
+</section>

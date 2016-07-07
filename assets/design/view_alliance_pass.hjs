@@ -1,0 +1,7 @@
+<!-- View Alliance Pass -->
+<section>
+  <p>Pass the device to <strong>{{name}}</strong></p>
+  <hr class="major">
+  <h3>{{name}}:</h3>
+  <p><span class="button special fit" id="show_alliance">View Alliance</span></p>
+</section>

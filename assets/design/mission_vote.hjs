@@ -1,0 +1,19 @@
+<!-- Team Vote -->
+<section>
+    <p>Cast your secret vote for the mission.<br>
+      Remember, resistance members must always cast a 'Success' vote.</p>
+    <p>The button positions have been randomized.</p>
+    <p>
+    {{#pre}}<br>{{/pre}}
+    {{#alt}}
+    <span class="button specialwrap big fit" id="mission_success">Success</span>
+    {{#post}}<br>{{/post}}
+    <span class="button warningwrap big fit" id="mission_fail">Fail</span>
+    {{/alt}}
+    {{^alt}}
+    <span class="button warningwrap big fit" id="mission_fail">Fail</span>
+    {{#post}}<br>{{/post}}
+    <span class="button specialwrap big fit" id="mission_success">Success</span>
+    {{/alt}}
+    </p>
+</section>
