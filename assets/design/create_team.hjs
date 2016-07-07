@@ -1,6 +1,6 @@
 <!-- Create Team -->
 <section>
-  <p>Pick <span class="team_count">{{count}}</span> more players:</p>
+  <p>{{fail_count}} fails are required to fail this mission.</p>
   <form method="get" action="" id="create_team_form">
     <div class="row uniform">
       {{#players}}
@@ -10,7 +10,7 @@
       </div>
       {{/players}}
       <div class="12u">
-        <input type="submit" class="button special fit disabled" value="Create Team" disabled="disabled"/>
+        <input type="submit" class="button special fit disabled" value="Pick {{count}} more players" disabled="disabled"/>
       </div>
     </div>
   </form>

@@ -2,6 +2,7 @@
 <section>
     <p>Cast your secret vote for the mission.<br>
       Remember, resistance members must always cast a 'Success' vote.</p>
+    <p>{{fail_count}} fails are required to fail this mission.</p>
     <p>The button positions have been randomized.</p>
     <p>
     {{#pre}}<br>{{/pre}}

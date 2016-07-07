@@ -59,17 +59,24 @@
         })
         // create team button
         .on('click', '#create_team', function(evt) {
-            render('create_team', {'count': Spy.team_size[Spy.players.length][Spy.current_mission], 'players': Spy.players});
+            render('create_team', {
+                'fail_count': Spy.required_fails[Spy.players.length][Spy.current_mission],
+                'players': Spy.players,
+                'count': Spy.team_size[Spy.players.length][Spy.current_mission]
+            });
         })
         // team player
         .on('click', '.team_player', function(evt) {
+            var count = Spy.team_size[Spy.players.length][Spy.current_mission] - $('input[type="checkbox"]:checked').length;
+
+            $('input.button').val('Pick ' + count + ' more players');
+
             if ($(this).prop('checked')) {
-                var count = parseInt($('span.team_count').text( ), 10) - 1;
-                $('span.team_count').text(count);
                 if (0 === count) {
                     $('input.button')
                         .removeClass('disabled')
-                        .prop('disabled', false);
+                        .prop('disabled', false)
+                        .val('Create Team');
                     $('input[type="checkbox"]')
                         .not(':checked')
                         .addClass('disabled')
@@ -77,8 +84,6 @@
                 }
             }
             else {
-                var count = parseInt($('span.team_count').text( ), 10) + 1;
-                $('span.team_count').text(count);
                 if (0 < count) {
                     $('input.button')
                         .addClass('disabled')
@@ -117,7 +122,12 @@
         .on('click', '#do_mission', function(evt) {
             var name = Spy.players[Spy.current_player].name;
             if (confirm('Are you sure you are ' + name + '?')) {
-                render('mission_vote', {'pre': Array(rand(0, 3)).fill(1), 'alt': (rand(0, 1) ? true : false), 'post': Array(rand(0, 3)).fill(1)});
+                render('mission_vote', {
+                    'pre': Array(rand(0, 3)).fill(1),
+                    'alt': (rand(0, 1) ? true : false),
+                    'post': Array(rand(0, 3)).fill(1),
+                    'fail_count': Spy.required_fails[Spy.players.length][Spy.current_mission]
+                });
             }
         })
         // mission success
