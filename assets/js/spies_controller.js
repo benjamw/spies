@@ -33,13 +33,17 @@
         // start game button
         .on('click', '#start_game:not(.disabled)', function(evt) {
             Spy.doneAddingPlayers( );
-            render('view_alliance_pass', {'name': Spy.players[Spy.current_player].name});
+            render('view_alliance_pass', {
+                'name': Spy.players[Spy.current_player].name
+            });
         })
         // show alliance button
         .on('click', '#show_alliance', function(evt) {
             var name = Spy.players[Spy.current_player].name;
             if (confirm('Are you sure you are ' + name + '?')) {
-                render('show_alliance', {'spy': Spy.players[Spy.current_player].spy});
+                render('show_alliance', {
+                    'spy': Spy.players[Spy.current_player].spy
+                });
             }
         })
         // alliance done button
@@ -50,12 +54,16 @@
                 render('script');
             }
             else {
-                render('view_alliance_pass', {'name': Spy.players[Spy.current_player].name});
+                render('view_alliance_pass', {
+                    'name': Spy.players[Spy.current_player].name
+                });
             }
         })
         // script done button
         .on('click', '#script_done', function(evt) {
-            render('view_leader_pass', {'name': Spy.players[Spy.current_leader].name});
+            render('view_leader_pass', {
+                'name': Spy.players[Spy.current_leader].name
+            });
         })
         // create team button
         .on('click', '#create_team', function(evt) {
@@ -106,17 +114,23 @@
 
             Spy.setTeam(team);
 
-            render('team_vote', {'team': Spy.getTeam( )});
+            render('team_vote', {
+                'team': Spy.getTeam( )
+            });
         })
         // mission vote passed
         .on('click', '#mission_vote_accept', function(evt) {
             Spy.teamVote(true);
-            render('do_mission_pass', {'name': Spy.players[Spy.current_player].name});
+            render('do_mission_pass', {
+                'name': Spy.players[Spy.current_player].name
+            });
         })
         // mission vote failed
         .on('click', '#mission_vote_reject', function(evt) {
             Spy.teamVote(false);
-            render('view_leader_pass', {'name': Spy.players[Spy.current_leader].name});
+            render('view_leader_pass', {
+                'name': Spy.players[Spy.current_leader].name
+            });
         })
         // mission button
         .on('click', '#do_mission', function(evt) {
@@ -136,10 +150,12 @@
             var result = Spy.finishMission( );
 
             if (false !== result) {
-                render('mission_done', {}, true);
+                render('mission_done', { }, true);
             }
             else {
-                render('do_mission_pass', {'name': Spy.players[Spy.current_player].name});
+                render('do_mission_pass', {
+                    'name': Spy.players[Spy.current_player].name
+                });
             }
         })
         // mission fail
@@ -148,10 +164,12 @@
             var result = Spy.finishMission( );
 
             if (false !== result) {
-                render('mission_done', {}, true);
+                render('mission_done', { }, true);
             }
             else {
-                render('do_mission_pass', {'name': Spy.players[Spy.current_player].name});
+                render('do_mission_pass', {
+                    'name': Spy.players[Spy.current_player].name
+                });
             }
         })
         // mission done button
@@ -167,7 +185,9 @@
                 result = false;
             }
             else {
-                render('error', {'msg': 'The mission has not completed yet'});
+                render('error', {
+                    'msg': 'The mission has not completed yet'
+                });
             }
 
             for (var i = 0; i < Spy.last_votes.length; i += 1) {
@@ -181,11 +201,17 @@
 
             Spy.updateMissionMarkers( );
 
-            render('show_results', {'result': result, 'successes': successes, 'fails': fails}, true);
+            render('show_results', {
+                'result': result,
+                'successes': successes,
+                'fails': fails
+            }, true);
         })
         // results done button
         .on('click', '#results_done', function(evt) {
-            render('view_leader_pass', {'name': Spy.players[Spy.current_leader].name});
+            render('view_leader_pass', {
+                'name': Spy.players[Spy.current_leader].name
+            });
         })
         // view alliances button
         .on('click', '#view_all_alliances', function (evt) {
