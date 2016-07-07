@@ -531,5 +531,5 @@ if ( ! Array.prototype.diff) {
      */
     Array.prototype.diff = function(arr) {
         return this.filter( function(elem) { return (arr.indexOf(elem) < 0); } );
-    }
+    };
 }

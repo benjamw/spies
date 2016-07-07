@@ -3,7 +3,7 @@
 (function($, Spies) {
     "use strict";
 
-    var Spy = new Spies;
+    var Spy = new Spies( );
 
     // events
 
@@ -345,13 +345,13 @@
         render('intro');
     }
     else {
-        Spy = new Spies;
+        Spy = new Spies( );
         Spy.setData(data);
     }
 
     switch (window.location.hash) {
         case '#reset' :
-            Spy = new Spies;
+            Spy = new Spies( );
             clear_data( );
             window.location = window.location.href.split('#')[0];
             break;
