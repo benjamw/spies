@@ -1,8 +1,41 @@
 
 .spy {
-  color: #DE4B4B;
+  color: #DE4B68;
 }
 
 .resistance {
   color: #4BB2DE;
+}
+
+.circle {
+  border: 1px solid _palette(accent2, fg);
+  border-radius: 50%;
+  font-size: 0.75em;
+  display: inline-block;
+  position: relative;
+  width: 15px;
+  height: 15px;
+  top: -1px;
+  line-height: 14px;
+  text-align: center;
+}
+
+.circle.spy {
+  background-color: #DE4B68;
+  border-color: #DE4B68;
+  color: darken(_palette(accent2, bg), 12);
+  font-weight: bold;
+}
+
+.circle.resistance {
+  background-color: #4BB2DE;
+  border-color: #4BB2DE;
+  color: darken(_palette(accent2, bg), 12);
+  font-weight: bold;
+}
+
+.circle.active {
+  border-color: #4BDE78;
+  color: #4BDE78;
+  font-weight: bold;
 }

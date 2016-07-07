@@ -241,18 +241,23 @@
         var $votes = $('#failed_votes_markers').find('span');
 
         // reset all the markers
-        $missions.attr('class', 'icon fa-circle-o');
-        $votes.attr('class', 'icon fa-circle-o');
+        $missions.attr('class', 'circle');
+        $votes.attr('class', 'icon fa-circle-thin');
 
         $missions.each( function(i, elem) {
-           if ('undefined' !== typeof Spy.missions[i]) {
-               if (Spy.missions[i]) {
-                   $(elem).attr('class', 'icon fa-circle resistance');
-               }
-               else {
-                   $(elem).attr('class', 'icon fa-circle spy');
-               }
-           }
+            var $elem = $(elem).text(Spy.team_size[Spy.players.length][i]);
+
+            if ('undefined' !== typeof Spy.missions[i]) {
+                if (Spy.missions[i]) {
+                    $elem.attr('class', 'circle resistance');
+                }
+                else {
+                    $elem.attr('class', 'circle spy');
+                }
+            }
+            else if (Spy.current_mission === i) {
+                $elem.addClass('active');
+            }
         });
 
         $votes.each( function(i, elem) {

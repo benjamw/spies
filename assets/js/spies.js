@@ -30,6 +30,7 @@ function Spies( ) {
     };
 
     this.team_size = {
+        0: [0, 0, 0, 0, 0], // to prevent errors in the markers
         5: [2, 3, 2, 3, 3],
         6: [2, 3, 3, 3, 4],
         7: [2, 3, 3, 4, 4],
