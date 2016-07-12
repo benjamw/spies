@@ -18,7 +18,7 @@
     </author>
 
     <platform name="android">
-        <icon src="assets/img/icon-60@3x.jpg" width="180" height="180"/>
+        <icon src="assets/img/xhdpi_icon.png" width="180" height="180" qualifier="xhdpi"/>
     </platform>
 
     <preference name="orientation" value="portrait"/>
