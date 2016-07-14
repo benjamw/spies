@@ -1,8 +1,8 @@
 // skel-baseline v3.0.1 | (c) n33 | skel.io | MIT licensed
 
-/* Nav */
+/* Sidebars */
 
-	#nav {
+	.sidebar {
 		@include vendor('transform', 'translateX(20em)');
 		@include vendor('transition', ('transform #{_duration(nav)} ease', 'box-shadow #{_duration(nav)} ease', 'visibility #{_duration(nav)}'));
 		-webkit-overflow-scrolling: touch;
