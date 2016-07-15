@@ -1,6 +1,0 @@
-<!-- Mission Done -->
-<section>
-  <p>Place the device in the middle so everyone can see.</p>
-  <hr class="major">
-  <p><span class="button special fit" id="mission_done">View Mission Results</span></p>
-</section>

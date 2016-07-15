@@ -1,8 +1,0 @@
-<!-- Show Results -->
-<section id="banner">
-  <h2>The mission<br>
-    {{#result}}<span class="resistance">SUCCEEDED</span>{{/result}}{{^result}}<span class="spy">FAILED</span>{{/result}}</h2>
-  <p></p>
-  <p><span class="resistance">Successes: <strong>{{successes}}</strong></span> | <span class="spy">Fails: <strong>{{fails}}</strong></span></p>
-</section>
-<p><span class="button special fit" id="results_done">Done</span></p>

@@ -1,6 +1,0 @@
-<!-- Show Alliance -->
-<section id="banner">
-  <h2>You are a<br>
-    {{#spy}}<span class="spy">Spy</span>{{/spy}}{{^spy}}<span class="resistance">Resistance</span>{{/spy}}</h2>
-</section>
-<p><span class="button special fit" id="alliance_done">Done</span></p>

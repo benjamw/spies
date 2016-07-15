@@ -1,6 +1,0 @@
-<!-- ERROR -->
-<section id="banner">
-  <h1>There has been an Error!</h1>
-  <p>{{msg}}</p>
-  <p>Refresh the page to get back to the game.</p>
-</section>

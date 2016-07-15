@@ -1,7 +1,0 @@
-<!-- View Leader Pass -->
-<section>
-  <p>Pass the device to <strong>{{name}}</strong></p>
-  <hr class="major">
-  <h3>{{name}}:</h3>
-  <p><span class="button special fit" id="create_team">Create Team</span></p>
-</section>
