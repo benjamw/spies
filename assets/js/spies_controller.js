@@ -350,6 +350,11 @@
     }
 
     switch (window.location.hash) {
+        case '#refresh' :
+            window.location = window.location.href.split('#')[0];
+            window.location.refresh( );
+            break;
+
         case '#reset' :
             Spy = new Spies( );
             clear_data( );

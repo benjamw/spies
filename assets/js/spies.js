@@ -497,4 +497,4 @@ if ( ! Array.prototype.diff) {
 
 /// GLOBALS
 
-var random = new Random(Random.engines.mt19937().autoSeed());
+var random = new Random(Random.engines.mt19937( ).autoSeed( ));
