@@ -87,6 +87,8 @@ Spies.prototype.newGame = function () {
     for (var i = 0; i < this.players.length; i += 1) {
         this.players[i].spy = false;
     }
+
+    this.setIds( );
 };
 
 
@@ -109,7 +111,7 @@ Spies.prototype.addPlayer = function(name) {
     }
 
     var player = {
-        'id': this.players.length,
+        'id': null,
         'name': name,
         'spy': false
     };
@@ -132,6 +134,18 @@ Spies.prototype.removePlayer = function(id) {
 };
 
 
+/**
+ * Set the player IDs when the game starts
+ */
+Spies.prototype.setIds = function( ) {
+    "use strict";
+
+    for (var i = 0; i < this.players.length; i += 1) {
+        this.players[i].id = i;
+    }
+};
+
+
 
 /**
  * Done adding players. Start the missions
@@ -139,6 +153,7 @@ Spies.prototype.removePlayer = function(id) {
 Spies.prototype.doneAddingPlayers = function( ) {
     "use strict";
 
+    this.setIds( );
     this.generateSpies( );
     this.nextMission( );
     this.nextPlayer( );
