@@ -87,6 +87,8 @@ Spies.prototype.newGame = function () {
     for (var i = 0; i < this.players.length; i += 1) {
         this.players[i].spy = false;
     }
+
+    this.setIds( );
 };
 
 
@@ -109,7 +111,7 @@ Spies.prototype.addPlayer = function(name) {
     }
 
     var player = {
-        'id': this.players.length,
+        'id': null,
         'name': name,
         'spy': false
     };
@@ -132,6 +134,18 @@ Spies.prototype.removePlayer = function(id) {
 };
 
 
+/**
+ * Set the player IDs when the game starts
+ */
+Spies.prototype.setIds = function( ) {
+    "use strict";
+
+    for (var i = 0; i < this.players.length; i += 1) {
+        this.players[i].id = i;
+    }
+};
+
+
 
 /**
  * Done adding players. Start the missions
@@ -139,6 +153,7 @@ Spies.prototype.removePlayer = function(id) {
 Spies.prototype.doneAddingPlayers = function( ) {
     "use strict";
 
+    this.setIds( );
     this.generateSpies( );
     this.nextMission( );
     this.nextPlayer( );
@@ -153,7 +168,11 @@ Spies.prototype.generateSpies = function( ) {
 
     // pull out the required number of random players to be spies
     var current;
-    var names = shuffle(this.players);
+    var names = this.players.slice(0);
+
+    for (var k = 0, len = random.integer(3, 6); k < len; k += 1) {
+        names = random.shuffle(names);
+    }
 
     for (var i = 0; i < this.teams[this.players.length][1]; i += 1) {
         current = names[i].id;
@@ -184,7 +203,7 @@ Spies.prototype.nextLeader = function( ) {
     // randomize first leader
     if (null === this.current_leader) {
         // because this gets incremented below, decrease all valid values by 1
-        this.current_leader = rand(-1, this.players.length - 2);
+        this.current_leader = random.integer(-1, this.players.length - 2);
     }
 
     this.current_leader += 1;
@@ -475,50 +494,6 @@ Spies.prototype.getTeam = function( ) {
 
 /// FUNCTIONS
 
-/**
- * shuffle an array clone
- *
- * @param array array
- * @return array shuffled array clone
- */
-function shuffle(array) {
-    "use strict";
-
-    // make sure this is a clone, not the original array
-    array = array.slice(0);
-
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-
-        // Pick a remaining element...
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        // And swap it with the current element.
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-}
-
-
-/**
- * randomly pick a value between two values, inclusive
- *
- * @param min int
- * @param max int
- * @return int
- */
-function rand(min, max) {
-    "use strict";
-
-    return parseInt(Math.floor(Math.random( ) * (max - min + 1)) + min, 10);
-}
-
 
 if ( ! Array.prototype.diff) {
     /**
@@ -533,3 +508,8 @@ if ( ! Array.prototype.diff) {
         return this.filter( function(elem) { return (arr.indexOf(elem) < 0); } );
     };
 }
+
+
+/// GLOBALS
+
+var random = new Random(Random.engines.mt19937( ).autoSeed( ));
