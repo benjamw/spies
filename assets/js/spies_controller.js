@@ -137,9 +137,9 @@
             var name = Spy.players[Spy.current_player].name;
             if (confirm('Are you sure you are ' + name + '?')) {
                 render('mission_vote', {
-                    'pre': Array(rand(0, 3)).fill(1),
-                    'alt': (rand(0, 1) ? true : false),
-                    'post': Array(rand(0, 3)).fill(1),
+                    'pre': Array(random.integer(0, 3)).fill(1),
+                    'alt': (random.integer(0, 1) ? true : false),
+                    'post': Array(random.integer(0, 3)).fill(1),
                     'fail_count': Spy.required_fails[Spy.players.length][Spy.current_mission]
                 });
             }
