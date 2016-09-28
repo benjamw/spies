@@ -1,9 +1,0 @@
-<!-- Hunt Is ON! -->
-<section id="banner">
-  <h3>The <span class="resistance">Resistance</span> have successfully completed 3 of the 5 missions, but the game isn't over...</h3>
-</section>
-<section>
-  <p>Pass the device to the assassin: <strong class="spy">{{assassin.name}}</strong>, so they can hunt the Commander!</p>
-  <h3>{{assassin.name}}:</h3>
-  <p><span class="button special fit" id="hunt_commander">Hunt Commander</span></p>
-</section>
