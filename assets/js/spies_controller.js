@@ -12,6 +12,10 @@
         .on('submit', '#players_entry_form', function(evt) {
             evt.preventDefault( );
 
+            if ('' === $('#name').val( ).trim( )) {
+                return;
+            }
+
             if ( ! Spy.addPlayer($('#name').val( ))) {
                 alert('A player with that name already exists');
                 display_players( );
@@ -40,9 +44,26 @@
         // show alliance button
         .on('click', '#show_alliance', function(evt) {
             var name = Spy.players[Spy.current_player].name;
+            var type = false;
+            if (Spy.players[Spy.current_player].spy) {
+                type = 'Spy';
+
+                if ('assassin' === Spy.players[Spy.current_player].type) {
+                    type = 'Assassin (Spy)';
+                }
+            }
+            else if ( ! Spy.players[Spy.current_player].spy) {
+                type = 'Resistance';
+
+                if ('commander' === Spy.players[Spy.current_player].type) {
+                    type = 'Commander (Resistance)';
+                }
+            }
+
             if (confirm('Are you sure you are ' + name + '?')) {
                 render('show_alliance', {
-                    'spy': Spy.players[Spy.current_player].spy
+                    'spy': Spy.players[Spy.current_player].spy,
+                    'type': type
                 });
             }
         })
@@ -51,7 +72,7 @@
             var player = Spy.nextPlayer( );
 
             if (false === player) {
-                render('script');
+                render('script', Spy.module);
             }
             else {
                 render('view_alliance_pass', {
@@ -75,7 +96,8 @@
         })
         // team player
         .on('click', '.team_player', function(evt) {
-            var count = Spy.team_size[Spy.players.length][Spy.current_mission] - $('input[type="checkbox"]:checked').length;
+            var $form = $('#create_team_form');
+            var count = Spy.team_size[Spy.players.length][Spy.current_mission] - $form.find('input[type="checkbox"]:checked').length;
 
             $('input.button').val('Pick ' + count + ' more players');
 
@@ -85,7 +107,7 @@
                         .removeClass('disabled')
                         .prop('disabled', false)
                         .val('Create Team');
-                    $('input[type="checkbox"]')
+                    $form.find('input[type="checkbox"]')
                         .not(':checked')
                         .addClass('disabled')
                         .prop('disabled', true);
@@ -96,7 +118,7 @@
                     $('input.button')
                         .addClass('disabled')
                         .prop('disabled', true);
-                    $('input[type="checkbox"]')
+                    $form.find('input[type="checkbox"]')
                         .removeClass('disabled')
                         .prop('disabled', false);
                 }
@@ -108,7 +130,7 @@
 
             var team = [];
 
-            $('input[type="checkbox"]:checked').each( function(i, elem) {
+            $('#create_team_form').find('input[type="checkbox"]:checked').each( function(i, elem) {
                team.push(elem.name.substr(7));
             });
 
@@ -213,6 +235,37 @@
                 'name': Spy.players[Spy.current_leader].name
             });
         })
+        // hunt commander button
+        .on('click', '#hunt_commander', function (evt) {
+            render('hunt_commander', {
+                'players': Spy.players
+            }, true);
+        })
+        // commander player
+        .on('click', '.commander_player', function (evt) {
+            var count = $('#hunt_commander_form').find('input[type="radio"]:checked').length;
+
+            if (count) {
+                $('input.button')
+                    .removeClass('disabled')
+                    .prop('disabled', false)
+                    .val('Strike');
+            }
+            else {
+                $('input.button')
+                    .addClass('disabled')
+                    .prop('disabled', true)
+                    .val('Select the Commander');
+            }
+        })
+        // hunt commander form
+        .on('submit', '#hunt_commander_form', function (evt) {
+            evt.preventDefault();
+
+            Spy.strikeCommander($('input[type="radio"]:checked').val( ));
+
+            check_game_over( );
+        })
         // view alliances button
         .on('click', '#view_all_alliances', function (evt) {
             render('show_all_alliances', {
@@ -220,7 +273,12 @@
             }, true);
         })
         ;
-    
+
+    // assassin module checkbox
+    $('#assassin_module').on('change', function (evt) {
+        Spy.setModule('assassin', $('#assassin_module').prop('checked'));
+    });
+
 
     // functions
 
@@ -229,6 +287,11 @@
             var resistance = ('Resistance' === Spy.winners);
             render('game_over', {'resistance': resistance}, true);
             throw 'Game Over'; // exit all remaining script
+        }
+
+        if (Spy.huntCommander) {
+            render('hunt_is_on', {'assassin': Spy.players[Spy.assassin]}, true);
+            throw 'Start Hunt'; // exit all remaining script
         }
     }
 
@@ -341,13 +404,15 @@
     // instantiation
 
     var data = get_data();
-    if (!data || ('undefined' === typeof data.players)) {
+    if ( ! data || ('undefined' === typeof data.players)) {
         render('intro');
     }
     else {
         Spy = new Spies( );
         Spy.setData(data);
     }
+
+    $('#assassin_module').prop('checked', Spy.module.assassin);
 
     switch (window.location.hash) {
         case '#refresh' :
