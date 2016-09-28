@@ -1,0 +1,19 @@
+<!-- Hunt Commander -->
+<section>
+  <h3>Who is the Commander?</h3>
+  <form method="get" action="" id="hunt_commander_form">
+    <div class="row uniform">
+      {{#players}}
+      {{^spy}}
+      <div class="12u">
+        <input type="radio" id="player_{{id}}" name="commander" value="{{id}}" class="commander_player"/>
+        <label for="player_{{id}}">{{name}}</label>
+      </div>
+      {{/spy}}
+      {{/players}}
+      <div class="12u">
+        <input type="submit" class="button special fit disabled" value="Select the Commander" disabled="disabled"/>
+      </div>
+    </div>
+  </form>
+</section>

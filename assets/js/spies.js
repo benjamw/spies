@@ -9,6 +9,9 @@ function Spies( ) {
     this.team = [];
     this.votes = [];
     this.last_votes = [];
+    this.assassin = null;
+    this.commander = null;
+    this.huntCommander = false;
     this.current_leader = null;
     this.current_mission = -1;
     this.current_player = null;
@@ -19,6 +22,10 @@ function Spies( ) {
     this.failed_missions = 0;
     this.succeeded_missions = 0;
     this.winners = false;
+
+    this.module = {
+        "assassin": false
+    };
 
     this.teams = {
         5: [3, 2],
@@ -65,7 +72,24 @@ Spies.prototype.setData = function(data) {
 
 
 /**
- * Reset the game but keep the current players
+ * Set the module setting
+ *
+ * @param name string
+ * @param value bool
+ */
+Spies.prototype.setModule = function(name, value) {
+    "use strict";
+
+    if (this.module.hasOwnProperty(name)) {
+        this.module[name] = !! value;
+    }
+
+    this.newGame( );
+};
+
+
+/**
+ * Reset the game but keep the current players and modules
  */
 Spies.prototype.newGame = function () {
     "use strict";
@@ -73,6 +97,9 @@ Spies.prototype.newGame = function () {
     this.team = [];
     this.votes = [];
     this.last_votes = [];
+    this.assassin = null;
+    this.commander = null;
+    this.huntCommander = false;
     this.current_leader = null;
     this.current_mission = -1;
     this.current_player = null;
@@ -86,6 +113,7 @@ Spies.prototype.newGame = function () {
 
     for (var i = 0; i < this.players.length; i += 1) {
         this.players[i].spy = false;
+        this.players[i].type = null;
     }
 
     this.setIds( );
@@ -104,6 +132,11 @@ Spies.prototype.addPlayer = function(name) {
     // test for player with the same name
     name = name.trim( );
 
+    if ('' === name) {
+        // no error, just continue
+        return true;
+    }
+
     for (var i = 0; i < this.players.length; i += 1) {
         if (name === this.players[i].name) {
             return false;
@@ -113,7 +146,8 @@ Spies.prototype.addPlayer = function(name) {
     var player = {
         'id': null,
         'name': name,
-        'spy': false
+        'spy': false,
+        'type': null // can be one of: 'assassin', 'commander'
     };
 
     this.players.push(player);
@@ -146,7 +180,6 @@ Spies.prototype.setIds = function( ) {
 };
 
 
-
 /**
  * Done adding players. Start the missions
  */
@@ -177,6 +210,32 @@ Spies.prototype.generateSpies = function( ) {
     for (var i = 0; i < this.teams[this.players.length][1]; i += 1) {
         current = names[i].id;
         this.players[current].spy = true;
+    }
+
+    if (this.module.assassin) {
+        // choose one resistance to be the commander
+        // and one spy to be the assassin
+        var r = random.integer(1, this.teams[this.players.length][0]);
+        var s = random.integer(1, this.teams[this.players.length][1]);
+        for (i = 0, len = this.players.length; i < len; i += 1) {
+            if ( ! this.players[i].spy) {
+                r -= 1;
+
+                if (0 === r) {
+                    this.players[i].type = 'commander';
+                    this.commander = this.players[i].id;
+                }
+            }
+
+            if (this.players[i].spy) {
+                s -= 1;
+
+                if (0 === s) {
+                    this.players[i].type = 'assassin';
+                    this.assassin = this.players[i].id;
+                }
+            }
+        }
     }
 };
 
@@ -226,8 +285,14 @@ Spies.prototype.nextMission = function( ) {
     this.nextLeader( );
 
     if (3 <= this.succeeded_missions) {
-        this.setWinners('Resistance');
-        return;
+        if (this.module.assassin) {
+            this.huntCommander = true;
+            return;
+        }
+        else {
+            this.setWinners('Resistance');
+            return;
+        }
     }
     else if (3 <= this.failed_missions) {
         this.setWinners('Spies');
@@ -445,6 +510,27 @@ Spies.prototype.finishMission = function( ) {
     this.nextMission( );
 
     return this.last_mission_result;
+};
+
+
+/**
+ * Attack the possible commander
+ *
+ * @param id attacked player
+ */
+Spies.prototype.strikeCommander = function(id) {
+    "use strict";
+
+    if ( ! this.huntCommander) {
+        return;
+    }
+
+    if (parseInt(id, 10) === this.commander) {
+        this.setWinners('spies');
+    }
+    else {
+        this.setWinners('resistance');
+    }
 };
 
 

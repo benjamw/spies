@@ -2,10 +2,18 @@
 <section>
   <ul>
     <li>Everyone close your eyes.</li>
+    {{#assassin}}<li>Extend your hand in a fist in front of you.</li>{{/assassin}}
     <li>Spies, open your eyes.</li>
     <li>Spies look around and make sure that you know all the other spies.</li>
     <li>Spies, close your eyes.</li>
-    <li>Everyone's eyes should be closed.</li>
+    <li>Everyone's eyes should be closed{{#assassin}} with their hands in a fist in front of them{{/assassin}}.</li>
+    {{#assassin}}
+    <li>Spies, extend your thumb so the Commander will know you.</li>
+    <li>Commander, open your eyes and see the Spies.</li>
+    <li>Commander, close your eyes.</li>
+    <li>Spies, put your thumbs down and reform your fist.</li>
+    <li>Everyone's eyes should be closed with their hands in a fist in front of them.</li>
+    {{/assassin}}
     <li>[Pause]</li>
     <li>Everyone open your eyes.</li>
   </ul>

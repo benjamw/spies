@@ -3,7 +3,7 @@
   <p>Player alliances:</p>
   <ul>
     {{#players}}
-    <li class="{{#spy}}spy{{/spy}}{{^spy}}resistance{{/spy}}">{{name}} &mdash; {{#spy}}Spy{{/spy}}{{^spy}}Resistance{{/spy}}</li>
+    <li class="{{#spy}}spy{{/spy}}{{^spy}}resistance{{/spy}}">{{name}} &mdash; {{#spy}}Spy{{/spy}}{{^spy}}Resistance{{/spy}}{{#type}} ({{type}}){{/type}}</li>
     {{/players}}
   </ul>
   <p></p>
