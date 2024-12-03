@@ -2,6 +2,8 @@
 <section>
     <p>Have everyone vote on the given team and record that vote here.<br>
       This does not need to be a secret, but everyone should vote at the same time.</p>
+	<p>A majority vote is required to <strong>accept</strong> the team.<br>
+	  If there is a tie, the team is <strong>rejected</strong>.</p>
     <p>The team:</p>
     <ul>
         {{#team}}

@@ -1,4 +1,4 @@
-var shell = require('shelljs');
+let shell = require('shelljs');
 
 module.exports = function(grunt) {
     // Config
@@ -36,4 +36,3 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', ['hogan:publish', 'compass']);
 };
-

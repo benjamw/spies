@@ -3,7 +3,7 @@
 (function($, Spies) {
     "use strict";
 
-    var Spy = new Spies( );
+    let Spy = new Spies( );
 
     // events
 
@@ -28,7 +28,7 @@
         })
         // remove player icon
         .on('click', 'span.remove', function(evt) {
-            var id = this.id.substr(7);
+            let id = this.id.substr(7);
 
             Spy.removePlayer(id);
 
@@ -43,8 +43,8 @@
         })
         // show alliance button
         .on('click', '#show_alliance', function(evt) {
-            var name = Spy.players[Spy.current_player].name;
-            var type = false;
+            let name = Spy.players[Spy.current_player].name;
+            let type = false;
             if (Spy.players[Spy.current_player].spy) {
                 type = 'Spy';
 
@@ -69,7 +69,7 @@
         })
         // alliance done button
         .on('click', '#alliance_done', function(evt) {
-            var player = Spy.nextPlayer( );
+            let player = Spy.nextPlayer( );
 
             if (false === player) {
                 render('script', Spy.module);
@@ -96,8 +96,8 @@
         })
         // team player
         .on('click', '.team_player', function(evt) {
-            var $form = $('#create_team_form');
-            var count = Spy.team_size[Spy.players.length][Spy.current_mission] - $form.find('input[type="checkbox"]:checked').length;
+            let $form = $('#create_team_form');
+            let count = Spy.team_size[Spy.players.length][Spy.current_mission] - $form.find('input[type="checkbox"]:checked').length;
 
             $('input.button').val('Pick ' + count + ' more players');
 
@@ -128,7 +128,7 @@
         .on('submit', '#create_team_form', function(evt) {
             evt.preventDefault( );
 
-            var team = [];
+            let team = [];
 
             $('#create_team_form').find('input[type="checkbox"]:checked').each( function(i, elem) {
                team.push(elem.name.substr(7));
@@ -156,7 +156,7 @@
         })
         // mission button
         .on('click', '#do_mission', function(evt) {
-            var name = Spy.players[Spy.current_player].name;
+            let name = Spy.players[Spy.current_player].name;
             if (confirm('Are you sure you are ' + name + '?')) {
                 render('mission_vote', {
                     'pre': Array(random.integer(0, 3)).fill(1),
@@ -169,7 +169,7 @@
         // mission success
         .on('click', '#mission_success', function(evt) {
             Spy.missionVote(true);
-            var result = Spy.finishMission( );
+            let result = Spy.finishMission( );
 
             if (false !== result) {
                 render('mission_done', { }, true);
@@ -183,7 +183,7 @@
         // mission fail
         .on('click', '#mission_fail', function(evt) {
             Spy.missionVote(false);
-            var result = Spy.finishMission( );
+            let result = Spy.finishMission( );
 
             if (false !== result) {
                 render('mission_done', { }, true);
@@ -196,9 +196,9 @@
         })
         // mission done button
         .on('click', '#mission_done', function(evt) {
-            var result;
-            var successes = 0;
-            var fails = 0;
+            let result;
+            let successes = 0;
+            let fails = 0;
 
             if (1 === Spy.last_mission_result) {
                 result = true;
@@ -212,7 +212,7 @@
                 });
             }
 
-            for (var i = 0; i < Spy.last_votes.length; i += 1) {
+            for (let i = 0; i < Spy.last_votes.length; i += 1) {
                 if (Spy.last_votes[i].vote) {
                     successes += 1;
                 }
@@ -243,7 +243,7 @@
         })
         // commander player
         .on('click', '.commander_player', function (evt) {
-            var count = $('#hunt_commander_form').find('input[type="radio"]:checked').length;
+            let count = $('#hunt_commander_form').find('input[type="radio"]:checked').length;
 
             if (count) {
                 $('input.button')
@@ -284,7 +284,7 @@
 
     function check_game_over( ) {
         if (Spy.winners) {
-            var resistance = ('Resistance' === Spy.winners);
+            let resistance = ('Resistance' === Spy.winners);
             render('game_over', {'resistance': resistance}, true);
             throw 'Game Over'; // exit all remaining script
         }
@@ -296,8 +296,8 @@
     }
 
     function display_players( ) {
-        var player_count = 5;
-        var $start_button = $('#start_game');
+        let player_count = 5;
+        let $start_button = $('#start_game');
 
         $('#players').empty( );
         $.each(Spy.players, function (i, elem) {
@@ -332,15 +332,15 @@
 
 
     function update_markers( ) {
-        var $missions = $('#mission_markers').find('span');
-        var $votes = $('#failed_votes_markers').find('span');
+        let $missions = $('#mission_markers').find('span');
+        let $votes = $('#failed_votes_markers').find('span');
 
         // reset all the markers
         $missions.attr('class', 'circle');
         $votes.attr('class', 'icon fa-circle-thin');
 
         $missions.each( function(i, elem) {
-            var $elem = $(elem).text(Spy.team_size[Spy.players.length][i]);
+            let $elem = $(elem).text(Spy.team_size[Spy.players.length][i]);
 
             if ('undefined' !== typeof Spy.missions[i]) {
                 if (Spy.missions[i]) {
@@ -378,15 +378,17 @@
 
 
     function store_data( ) {
-        console.log('Storing data: ');
-        console.log(Spy);
-        console.log(JSON.stringify(Spy));
+        if (typeof console !== "undefined" && typeof console.log === "function") {
+            console.log('Storing data: ');
+            console.log(Spy);
+            console.log(JSON.stringify(Spy));
+        }
         sessionStorage.setItem('Spies', JSON.stringify(Spy));
     }
 
 
     function get_data( ) {
-        var data = sessionStorage.getItem('Spies');
+        let data = sessionStorage.getItem('Spies');
 
         if (data) {
             data = JSON.parse(data);
@@ -403,7 +405,7 @@
 
     // instantiation
 
-    var data = get_data();
+    let data = get_data();
     if ( ! data || ('undefined' === typeof data.players)) {
         render('intro');
     }
@@ -417,10 +419,10 @@
     switch (window.location.hash) {
         case '#refresh' :
             window.location = window.location.href.split('#')[0];
-            window.location.refresh( );
+            window.location.reload( );
             break;
 
-        case '#reset' :
+        case '#clear' :
             Spy = new Spies( );
             clear_data( );
             window.location = window.location.href.split('#')[0];
@@ -444,8 +446,32 @@
 
     // refresh on menu item clicks
     $('a[href^="#"]').not('a[href="#nav"]').on('click', function(evt) {
-        store_data( );
-        window.location.reload( );
+        switch (evt.target.hash) {
+            case '#refresh' :
+                window.location.reload();
+                break;
+
+            case '#clear' :
+                Spy = new Spies();
+                clear_data();
+                break;
+
+            case '#new' :
+                Spy.newGame();
+                store_data();
+                break;
+
+            case '#undo' :
+                // not sure yet...
+                break;
+
+            default :
+                // do nothing
+                break;
+        }
+
+        store_data();
+        window.location.reload();
     });
 
 

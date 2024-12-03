@@ -63,7 +63,7 @@ function Spies( ) {
  * @param data
  */
 Spies.prototype.setData = function(data) {
-    for (var elem in data) {
+    for (let elem in data) {
         if (data.hasOwnProperty(elem) && this.hasOwnProperty(elem)) {
             this[elem] = data[elem];
         }
@@ -111,7 +111,7 @@ Spies.prototype.newGame = function () {
     this.succeeded_missions = 0;
     this.winners = false;
 
-    for (var i = 0; i < this.players.length; i += 1) {
+    for (let i = 0; i < this.players.length; i += 1) {
         this.players[i].spy = false;
         this.players[i].type = null;
     }
@@ -137,13 +137,13 @@ Spies.prototype.addPlayer = function(name) {
         return true;
     }
 
-    for (var i = 0; i < this.players.length; i += 1) {
+    for (let i = 0; i < this.players.length; i += 1) {
         if (name === this.players[i].name) {
             return false;
         }
     }
 
-    var player = {
+    let player = {
         'id': null,
         'name': name,
         'spy': false,
@@ -174,7 +174,7 @@ Spies.prototype.removePlayer = function(id) {
 Spies.prototype.setIds = function( ) {
     "use strict";
 
-    for (var i = 0; i < this.players.length; i += 1) {
+    for (let i = 0; i < this.players.length; i += 1) {
         this.players[i].id = i;
     }
 };
@@ -200,14 +200,14 @@ Spies.prototype.generateSpies = function( ) {
     "use strict";
 
     // pull out the required number of random players to be spies
-    var current;
-    var names = this.players.slice(0);
+    let current;
+    let names = this.players.slice(0);
 
-    for (var k = 0, len = random.integer(3, 6); k < len; k += 1) {
+    for (let k = 0, len = random.integer(3, 6); k < len; k += 1) {
         names = random.shuffle(names);
     }
 
-    for (var i = 0; i < this.teams[this.players.length][1]; i += 1) {
+    for (let i = 0; i < this.teams[this.players.length][1]; i += 1) {
         current = names[i].id;
         this.players[current].spy = true;
     }
@@ -215,8 +215,8 @@ Spies.prototype.generateSpies = function( ) {
     if (this.module.assassin) {
         // choose one resistance to be the commander
         // and one spy to be the assassin
-        var r = random.integer(1, this.teams[this.players.length][0]);
-        var s = random.integer(1, this.teams[this.players.length][1]);
+        let r = random.integer(1, this.teams[this.players.length][0]);
+        let s = random.integer(1, this.teams[this.players.length][1]);
         for (i = 0, len = this.players.length; i < len; i += 1) {
             if ( ! this.players[i].spy) {
                 r -= 1;
@@ -380,7 +380,7 @@ Spies.prototype.failTeamVote = function( ) {
 Spies.prototype.tallyTeamVotes = function( ) {
     "use strict";
 
-    var votes_for = 0;
+    let votes_for = 0;
     var votes_against = 0;
 
     for (var id in this.team_votes) {

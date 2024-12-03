@@ -2,11 +2,11 @@
   "name": "Spies",
   "version": "0.8.0",
   "devDependencies": {
-    "grunt": "~1.0.0",
-    "hogan.js": "~3.0.2",
-    "grunt-templates-hogan": "~0.3.0",
-    "shelljs": "~0.8.3",
+    "grunt": "^1.6.1",
     "grunt-contrib-concat": "~1.0.1",
-    "grunt-contrib-watch": "~1.0.0"
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-templates-hogan": "~0.3.0",
+    "hogan.js": "~3.0.2",
+    "shelljs": "~0.8.3"
   }
 }
